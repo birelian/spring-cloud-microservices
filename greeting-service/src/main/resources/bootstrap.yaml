@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: greeting-service
+
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-service
+
+---
+
+spring:
+  profiles: DOCKER
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+
+  instance:
+    preferIpAddress: true

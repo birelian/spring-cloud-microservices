@@ -1,0 +1,64 @@
+version: "3"
+services:
+
+  # API gateway
+  api-gateway:
+    image: birelian/api-gateway:1.0
+    environment:
+      - "SPRING_PROFILES_ACTIVE=DOCKER"
+    ports:
+      - "8000:8000"
+    networks:
+      - microservices-network
+
+  # 2 instances of Time Service
+  time-service-1:
+    image: birelian/time-service:1.0
+    ports:
+      - "7001:7001"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=DOCKER"
+    networks:
+      - microservices-network
+
+  time-service-2:
+    image: birelian/time-service:1.0
+    ports:
+        - "7002:7002"
+    environment:
+        - "SPRING_PROFILES_ACTIVE=DOCKER"
+        - "SERVER_PORT=7002"
+    networks:
+        - microservices-network
+
+  # 2 instances of Greeting Service
+  greeting-service-1:
+    image: birelian/greeting-service:1.0
+    ports:
+      - "8001:8001"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=DOCKER"
+    networks:
+      - microservices-network
+
+  greeting-service-2:
+    image: birelian/greeting-service:1.0
+    ports:
+      - "8002:8002"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=DOCKER"
+      - "SERVER_PORT=8002"
+    networks:
+      - microservices-network
+
+  admin-service:
+    image: birelian/admin-service:1.0
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=DOCKER"
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:

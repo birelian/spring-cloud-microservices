@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: admin-service
+
+server:
+  port: 8080
+
+---
+
+spring:
+  profiles: DOCKER
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+
+  instance:
+    preferIpAddress: true

@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: time-service
+
+server:
+  port: 7001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+---
+
+spring:
+  profiles: DOCKER
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/
+
+  instance:
+    preferIpAddress: true
