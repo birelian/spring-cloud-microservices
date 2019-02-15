@@ -50,28 +50,38 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>${dockerfile-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>birelian/${project.artifactId}</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
+
+	<!-- Set a DOCKER profile in order to optionally generate the docker images -->
+	<profiles>
+		<profile>
+			<id>DOCKER</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.spotify</groupId>
+						<artifactId>dockerfile-maven-plugin</artifactId>
+						<version>${dockerfile-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>default</id>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<repository>birelian/${project.artifactId}</repository>
+							<tag>${project.version}</tag>
+							<buildArgs>
+								<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+							</buildArgs>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

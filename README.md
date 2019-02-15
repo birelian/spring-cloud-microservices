@@ -21,12 +21,32 @@ is read from the `config-server`. The service also calls `time-service` to print
  - *Java* and *Maven*: In order to compile the services.
  - *Docker*(optional): In order to run all the services in a simple way. [Get it from here](https://docs.docker.com/)
 
-# How to run
+# How to run (non-docker way)
 
-First of all you must compile the services. It also generates the required *Docker* images:
+First of all you must compile the services without activating DOCKER profile
 
 ```
 $ mvn clean install
+```
+
+Now you can launch a service moving to it's directory and executing
+ 
+```
+mvn spring-boot:run
+```
+
+You may want to change the default port. Just execute:
+
+```
+mvn spring-boot:run -Dserver.port=1234
+```
+
+# How to run (docker way)
+
+First of all you must compile the services with activating DOCKER profile
+
+```
+$ mvn clean install -PDOCKER
 ```
 
 There are two docker compose files:
